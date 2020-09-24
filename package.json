@@ -1,0 +1,26 @@
+{
+  "name": "goldrush",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ziv22/GoldRush.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ziv22/GoldRush/issues"
+  },
+  "homepage": "https://github.com/Ziv22/GoldRush#readme",
+  "dependencies": {
+    "handlebars": "^4.7.6",
+    "jquery": "^3.5.1"
+  },
+  "devDependencies": {
+    "font-awesome": "^4.7.0"
+  }
+}

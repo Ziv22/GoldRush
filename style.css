@@ -1,0 +1,27 @@
+h1{
+    text-align: center;
+}
+table{
+    border:0.1px solid black;
+    border-spacing: 0;
+    margin: auto
+}
+td{
+   background-color: bisque;
+   height:2.5em;
+   width:2.5em;
+   border:1px solid black
+}
+
+.player1{
+    color: blueviolet;
+    margin:auto;
+}
+.player2{
+    margin:auto;
+    color: rgb(35, 200, 151);
+}
+.coin{
+    color: rgba(42, 255, 255, 0.89);
+    margin:auto;
+}
