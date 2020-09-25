@@ -9,22 +9,44 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Gold Rush!</h1>
-    <div id="board-conatainer"></div>
+    <div id="container">
+        <div id="header">
+            <h1>Gold Rush!</h1>
+        </div>
+        <div id="content">
+            <div id="board-conatainer"></div>
+            <div id="stats-container"></div>
+        </div>
+        <div id="footer"></div>
+        
+    </div>
     <script id="board-template" type="text/x-handlebars-template">
         <table>
-            {{#each board}}
-                <tr>
-                    {{#each this}}
-                        <td>
-                            {{classifizer this}}
-                        </td>
-                    {{/each}}
-                </tr>
+            {{#each board.matrix}}
+            <tr>
+                {{#each this}}
+                <td>
+                    {{classifizer this}}
+                </td>
+                {{/each}}
+            </tr>
             {{/each}}
         </table>
+        <div id="stats-container">
+            <div id="player1">
+                Player 1: 
+                <div id="p1score">
+                    {{board.player1.score}}
+                </div>
+            </div>
+            <div id="player2">Player 2:
+                <div id="p1score">
+                    {{board.player2.score}}
+                </div>
+            </div>
+        </div>
     </script>
-
+    
     <script src="https://use.fontawesome.com/releases/v5.14.0/js/all.js" data-auto-a11y="true"></script>
     <script src="./Matrix.js"></script>
     <script src="./Renderer.js"></script>

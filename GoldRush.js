@@ -16,6 +16,7 @@ class GoldRush extends Matrix{
         this.freeCells  = (this.numColumns * this.numRows) -2
         this.numWalls = 0
         this.coins = []
+        this.walls = []
         this.numCoins = 10
         this.generateCoins(this.numCoins)
         this.setPlayers(this.player1,this.player2)
@@ -58,6 +59,11 @@ class GoldRush extends Matrix{
             this.alter(c.x,c.y,"C")
         })
     }
+    setWall(){
+        this.walls.forEach(c =>{
+            this.alter(c.x,c.y,"W")
+        })
+    }
     removeCoin(x,y){
         const coinIndex = this.coins.findIndex(c => (c.x == x && c.y == y ))
         this.coins.splice(coinIndex , 1)
@@ -77,20 +83,27 @@ class GoldRush extends Matrix{
             currentPlayer.score += 10
         }
     }
+
+    isFree(x , y){
+        if(this.matrix[x][y] == "C" || this.matrix[x][y] == "." ){
+            return true
+        }
+        return false
+    }
     movePlayer(player,direction){
         let currentPlayer = this[`player${player}`]
 
         if(direction == "up"){
-            if(currentPlayer.x > 0){
+            if(currentPlayer.x > 0 ){
                 currentPlayer.x--
             }
         }
         else if(direction == "right"){
-            if(currentPlayer.y < this.numColumns -1 ){
+            if(currentPlayer.y < this.numColumns -1){
                 currentPlayer.y++
             }
         } 
-        else if(direction == "down"){
+        else if(direction == "down" ){
             if(currentPlayer.x < this.numRows -1){
                 currentPlayer.x++
             }

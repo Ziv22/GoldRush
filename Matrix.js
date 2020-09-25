@@ -9,7 +9,7 @@ class Matrix{
         for (let r = 0; r < numRows; r++) {
             matrix.push([])
             for (let c = 0; c < numColumns; c++) {
-                matrix[r].push("")
+                matrix[r].push(".")
             }
         }
         this.matrix = matrix
