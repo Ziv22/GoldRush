@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoldRush</title>
+    <script src="./node_modules/handlebars/dist/handlebars.js"></script>
+    <script src="./node_modules/jquery/dist/jquery.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="container">
+        <div id="header">
+            <h1>Gold Rush!</h1>
+        </div>
+        <div id="content">
+            <div id="board-conatainer"><img src="src/goldrush.jpg" id="home-image"></div>
+        </div>
+        <div id="footer">
+            <input type="number"  class="controllers" id="rows">
+            <input type="number"  class="controllers" id="colums">
+            <input type="button"  class="controllers" id="start" value="Start">
+        </div>
+        
+    </div>
+    <script id="board-template" type="text/x-handlebars-template">
+        <table>
+            {{#each board.matrix}}
+            <tr>
+                {{#each this}}
+                <td>
+                    {{classifizer this}}
+                </td>
+                {{/each}}
+            </tr>
+            {{/each}}
+        </table>
+        <div id="stats-container">
+            <div id="score-header">Scores</div>
+            <div id="player1">
+                Player 1: 
+                <span id="p1score">
+                    {{board.player1.score}}
+                </span>
+            </div>
+            <div id="player2">Player 2:
+                <span id="p2score">
+                    {{board.player2.score}}
+                </span>
+            </div>
+        </div>
+    </script>
+    
+    <script src="https://use.fontawesome.com/releases/v5.14.0/js/all.js" data-auto-a11y="true"></script>
+    <script src="./Matrix.js"></script>
+    <script src="./Renderer.js"></script>
+    <script src="./GoldRush.js"></script>
+    <script src="./main.js"></script>
+</body>
+</html>
