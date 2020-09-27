@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "review": "node node_modules/elevation-pr/index.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/Ziv22/GoldRush#readme",
   "dependencies": {
+    "elevation-pr": "^1.3.0",
     "handlebars": "^4.7.6",
     "jquery": "^3.5.1"
   },
