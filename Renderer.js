@@ -1,6 +1,5 @@
 class Renderer{
     constructor(){
-
     }
     renderBoard(board){
         const source    = $("#board-template").html()

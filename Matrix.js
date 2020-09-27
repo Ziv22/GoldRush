@@ -14,7 +14,6 @@ class Matrix{
         }
         this.matrix = matrix
     }
-
     print(){
         for (let index = 0; index < this.matrix.length; index++) {
             let line = ""
@@ -24,21 +23,17 @@ class Matrix{
             console.log(line);
         }
     }
-    
     get(rowNum, colNum){
         return this.matrix[rowNum][colNum]
     }
-    
     printRow(rowNum){
         for (let index = 0; index < this.matrix[rowNum].length; index++) {
             console.log(this.matrix[rowNum][index])
         }
     }
-    
     alter(rowNum, colNum, newVal){
         this.matrix[rowNum][colNum] = newVal
     }
-
     findCoordinate(value){
         for (let rowNum = 0; rowNum < this.matrix.length; rowNum++) {
             for(let colNum =0; colNum < this.matrix[rowNum].length; colNum++){

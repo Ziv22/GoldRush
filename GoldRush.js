@@ -14,76 +14,77 @@ class GoldRush extends Matrix{
             y: numColumns-1
         }
         this.freeCells  = (this.numColumns * this.numRows) -2
-        this.numWalls = 0
+        this.numCoins = 10
+        this.numWalls = 6
         this.coins = []
         this.walls = []
-        this.numCoins = 10
-        this.generateCoins(this.numCoins)
-        this.setPlayers(this.player1,this.player2)
+        this.generateBoardItem("coins",this.numCoins)
+        this.generateBoardItem("walls",this.numWalls)
+        this.setGame(this.player1,this.player2)
     }
 
     getRandom(num){
         return Math.floor(Math.random() * num)
     }
-    getCoin(){
+    getRandomLocation(){
         let x = this.getRandom(this.numRows)
         let y = this.getRandom(this.numColumns)
         return {x,y}
     }
-    coinAlreadyExist(coin){
-        return this.coins.find(c => c.x == coin.x && c.y == coin.y)
+    alreadyExist(item){
+        const coins = this.coins.find(c => c.x == item.x && c.y == item.y)
+        const walls = this.walls.find(w => w.x == item.x && w.y == item.y)
+        return coins && walls
     }
-    isGoodLocation(newCoin){
-        if(newCoin.x == this.player1.x && newCoin.y == this.player1.y){
+    isGoodLocation(newItem){
+        if(newItem.x == this.player1.x && newItem.y == this.player1.y){
             return false
-        } else 
-        if(newCoin.x == this.player2.x && newCoin.y == this.player2.y){
+        } 
+        else if(newItem.x == this.player2.x && newItem.y == this.player2.y){
             return false
         }
-        if(this.coinAlreadyExist(newCoin)){
+        if(this.alreadyExist(newItem)){
             return false
         }
         return true
     }
-    generateCoins(numCoins){
-        while(this.coins.length < numCoins && this.coins.length < this.freeCells){
-            let coin = this.getCoin()
-            if(this.isGoodLocation(coin)){
-                this.coins.push(coin)
+    generateBoardItem(item,num){
+        while(this[item].length < num && this[item].length < this.freeCells){
+            let newItem = this.getRandomLocation()
+            if(this.isGoodLocation(newItem)){
+                this[item].push(newItem)
             }
         }
     }
-
-    setCoins(){
-        this.coins.forEach(c =>{
-            this.alter(c.x,c.y,"C")
-        })
-    }
-    setWall(){
-        this.walls.forEach(c =>{
-            this.alter(c.x,c.y,"W")
+    setItems(items,mark){
+        this[items].forEach(i =>{
+            this.alter(i.x,i.y,mark)
         })
     }
     removeCoin(x,y){
         const coinIndex = this.coins.findIndex(c => (c.x == x && c.y == y ))
         this.coins.splice(coinIndex , 1)
-        this.setCoins()
+        this.setItems("coins","C")
     }
-
-    setPlayers(){
+    setGame(){
         this.generateMatrix(this.numRows ,this.numColumns)
-        this.setCoins()
+        this.setItems("coins","C")
+        this.setItems("walls","W")
         this.alter(this.player1.x , this.player1.y , this.player1.mark)
         this.alter(this.player2.x , this.player2.y , this.player2.mark)
     }
     ifScores(player){
-        let currentPlayer = this[`player${player}`]
-        if(this.matrix[currentPlayer.x][currentPlayer.y] == "C"){
-            this.removeCoin(currentPlayer.x,currentPlayer.y)
-            currentPlayer.score += 10
+        if(this.matrix[player.x][player.y] == "C"){
+            this.removeCoin(player.x,player.y)
+            player.score += 10
         }
     }
-
+    gameOver(player){
+        if(player.score > ((this.numCoins * 10) / 2)){
+            alert(`Game Over ${player.mark} Wins`)
+            location.reload()
+        }
+    }
     isFree(x , y){
         if(this.matrix[x][y] == "C" || this.matrix[x][y] == "." ){
             return true
@@ -94,26 +95,27 @@ class GoldRush extends Matrix{
         let currentPlayer = this[`player${player}`]
 
         if(direction == "up"){
-            if(currentPlayer.x > 0 ){
+            if(currentPlayer.x > 0 && this.isFree(currentPlayer.x-1,currentPlayer.y)){
                 currentPlayer.x--
             }
         }
         else if(direction == "right"){
-            if(currentPlayer.y < this.numColumns -1){
+            if(currentPlayer.y < this.numColumns -1 && this.isFree(currentPlayer.x,currentPlayer.y+1)){
                 currentPlayer.y++
             }
         } 
         else if(direction == "down" ){
-            if(currentPlayer.x < this.numRows -1){
+            if(currentPlayer.x < this.numRows -1 && this.isFree(currentPlayer.x+1,currentPlayer.y)){
                 currentPlayer.x++
             }
         } 
-        else if(direction == "left"){
+        else if(direction == "left" && this.isFree(currentPlayer.x,currentPlayer.y-1)){
            if(currentPlayer.y > 0 ){     
                 currentPlayer.y--
             }
         }
-        this.ifScores(player)
-        this.setPlayers()
+        this.ifScores(currentPlayer)
+        this.setGame()
+        this.gameOver(currentPlayer)
     }
 }
